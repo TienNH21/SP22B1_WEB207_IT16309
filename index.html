@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body ng-app="demo_routing">
+    <ul>
+        <li><a href="#blue/TienNH21">Blue</a></li>
+        <li><a href="#red/TienNH22">Red</a></li>
+        <li><a href="#green/TienNH23">Green</a></li>
+    </ul>
+
+    <div ng-view></div>
+
+    <script src="js/angularjs.min.js"></script>
+    <script src="js/angular-route.js"></script>
+
+    <script src="controllers/BlueController.js"></script>
+    <script src="controllers/GreenController.js"></script>
+    <script src="controllers/RedController.js"></script>
+
+    <script>
+        const app = angular.module("demo_routing", ["ngRoute"]);
+
+        app.config(function ($routeProvider, $locationProvider) {
+            $locationProvider.hashPrefix("");
+            $routeProvider
+                .when("/blue/:name", {
+                    templateUrl: 'pages/blue.html',
+                    controller: 'blueController'
+                })
+                .when("/red/:name", {
+                    templateUrl: 'pages/red.html',
+                    controller: 'redController'
+                })
+                .when("/green/:name", {
+                    templateUrl: 'pages/green.html',
+                    controller: 'greenController'
+                })
+                .when("/404", {
+                    template: '<div>404 Not Found</div>',
+                })
+                .otherwise({
+                    redirectTo: '/404'
+                })
+        });
+
+        app.controller("redController", redController);
+        app.controller("blueController", blueController);
+        app.controller("greenController", greenController);
+    </script>
+</body>
+</html>
